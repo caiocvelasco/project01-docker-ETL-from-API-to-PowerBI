@@ -1,4 +1,4 @@
-# My First Docker Project
+# ETL Pipeline from API to PowerBI, with Dockerized Postgres, Jupyter Notebook, and Python 
 
 ## Table of Contents
 
@@ -10,6 +10,9 @@
 - [Services](#services)
 - [Project Definition](#project-definition)
   - [Data Source](#data-source)
+  - [The ETL Jupyter Notebook](#etl-pipeline-notebook)
+  - [The ETL Process](#etl-process)
+  
 
 ## Project Structure
 
@@ -17,14 +20,11 @@
     - **.devcontainer/**
       - devcontainer.json
     - **your_jup_notebooks/**
-      - jup_notebook_example.ipynb
-    - **your_python_scripts/**
-        - ingest_fake_data.py
-      - **.env**
+      - etl_pipeline.ipynb
+    - **.env**
     - **.python-version**
     - **Dockerfile**
     - **docker-compose.yml**
-    - **init.sql**
     - **requirements.txt**
     - **README.md**
 
@@ -38,13 +38,24 @@ Make sure you have the following installed on your local development environment
 - [Docker Compose](https://docs.docker.com/compose/install/)
 - [VSCode](https://code.visualstudio.com/) with the [Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
+Make sure to inclue a .gitignore file with the following information:
+- # Ignore Python bytecode files
+  - *.pyc
+
+- # Ignore .env files
+  - .env
+
 ### Environment Variables
+
+The .gitignore file, ignores the ´.env´ file for security reasons. However, since this is just for educational purposes, follow the step below to include it in your project. If you do not include it, the docker will not work.
 
 Create a `.env` file in the project root with the following content:
 
 - POSTGRES_USER=your_postgres_user
 - POSTGRES_PASSWORD=your_postgres_password
 - POSTGRES_DB=your_postgres_db
+- POSTGRES_HOST=postgres
+- POSTGRES_DB_URL=postgresql://myuser:mypassword@postgres/mydatabase
 
 
 ### Build and Run
@@ -63,9 +74,19 @@ Create a `.env` file in the project root with the following content:
 
 - **Postgres**: A PostgreSQL database instance.
 - **Python**: A container running Python 3.9.13 with necessary dependencies.
-- **Jupyter Notebook**: A Jupyter Notebook instance for interactive data analysis.
+- **Jupyter Notebook**: A Jupyter Notebook instance to build your ETL Pipeline and interact with the data. 
 
 ## Project Definition
 
 ### Data Source
-  Data comes from an API called [CoinCap API](https://docs.coincap.io/#89deffa0-ab03-4e0a-8d92-637a857d2c91). CoinCap is a useful tool for real-time pricing and market activity for over 1,000 cryptocurrencies.
+  The data is from an external 3rd party API called [CoinCap API](https://docs.coincap.io/#89deffa0-ab03-4e0a-8d92-637a857d2c91). CoinCap is a useful tool for real-time pricing and market activity for over 1,000 cryptocurrencies.
+
+### The ETL Jupyter Notebook
+  The etl_pipeline notebook is located under the ´project-root > your_jupyter_notebooks´ folder. It contains 3 functions that perform the 3 parts of the ETL process.
+
+### The ETL Process
+  Data is **extracted** from an external API (extract() function), then it is **transformed** (transform() function), and finally **loaded**, i.e., persisted in a PostgreSQL database.
+  
+  During the transformation process, the semi-structured data (JSON) was normalized into a python DataFrame to assume a tabular (structured) format. Data cleaning procedures were performed and missing data was handled. 
+  
+  Data Quality checks were also performed, guaranteeing that the data was correctly persisted in the PostgreSQL database.
