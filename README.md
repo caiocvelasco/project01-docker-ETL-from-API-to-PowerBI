@@ -1,5 +1,7 @@
 # ETL Pipeline from API to PowerBI, with Dockerized Postgres, Jupyter Notebook, and Python 
 
+<img src = "img/project01-etl.png">
+
 ## Table of Contents
 
 - [Project Structure](#project-structure)
