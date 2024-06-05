@@ -39,11 +39,8 @@ Make sure you have the following installed on your local development environment
 - [VSCode](https://code.visualstudio.com/) with the [Remote - Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 Make sure to inclue a .gitignore file with the following information:
-- # Ignore Python bytecode files
-  - *.pyc
-
-- # Ignore .env files
-  - .env
+- *.pyc
+- .env
 
 ### Environment Variables
 
@@ -55,8 +52,6 @@ Create a `.env` file in the project root with the following content:
 - POSTGRES_PASSWORD=your_postgres_password
 - POSTGRES_DB=your_postgres_db
 - POSTGRES_HOST=postgres
-- POSTGRES_DB_URL=postgresql://myuser:mypassword@postgres/mydatabase
-
 
 ### Build and Run
 
@@ -82,11 +77,11 @@ Create a `.env` file in the project root with the following content:
   The data is from an external 3rd party API called [CoinCap API](https://docs.coincap.io/#89deffa0-ab03-4e0a-8d92-637a857d2c91). CoinCap is a useful tool for real-time pricing and market activity for over 1,000 cryptocurrencies.
 
 ### The ETL Jupyter Notebook
-  The etl_pipeline notebook is located under the ´project-root > your_jupyter_notebooks´ folder. It contains 3 functions that perform the 3 parts of the ETL process.
+  The etl_pipeline notebook is located under the `project-root > your_jupyter_notebooks` folder. It contains 3 functions that perform the 3 parts of the ETL process.
 
 ### The ETL Process
-  Data is **extracted** from an external API (extract() function), then it is **transformed** (transform() function), and finally **loaded**, i.e., persisted in a PostgreSQL database.
+  Data is **extracted** from an external API (_extract()_ function), then it is **transformed** (_transform()_ function), and finally **loaded** (_load()_ function), i.e., persisted in a PostgreSQL database.
   
-  During the transformation process, the semi-structured data (JSON) was normalized into a python DataFrame to assume a tabular (structured) format. Data cleaning procedures were performed and missing data was handled. 
+  During the transformation process, the semi-structured data (JSON) was normalized into a python DataFrame to assume a tabular (structured) format. Then, the data follows some cleaning procedures, such as converting categorical columns into numerical ones, handling missing data, and rounding some columns to 2 decimal places. 
   
-  Data Quality checks were also performed, guaranteeing that the data was correctly persisted in the PostgreSQL database.
+  Data Quality checks were also performed during the process, guaranteeing that the data was correctly persisted in the PostgreSQL database.
