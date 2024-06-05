@@ -17,7 +17,7 @@ services:
       - "5432"
     volumes:
       - pgdata:/var/lib/postgresql/data # This volume specifies the postgres storage path
-      - ~/.ssh:/root/.ssh  # Mount SSH directory into the container
+      # - ~/.ssh:/root/.ssh  # Mount SSH directory into the container
       # - ./init.sql:/docker-entrypoint-initdb.d/init.sql # From the local init.sql, automatically create schemas/tables in the database mounting as a volume inside the docker entrypoint folder
     networks:
       - etl_network
@@ -33,7 +33,7 @@ services:
     - ./.env
     volumes:
       - .:/workspace
-      - ~/.ssh:/root/.ssh  # Mount SSH directory into the container
+      # - ~/.ssh:/root/.ssh  # Mount SSH directory into the container
       - /var/run/docker.sock:/var/run/docker.sock  # Bind Docker socket to enable Docker commands within the container
     working_dir: /workspace 
     depends_on:
@@ -55,7 +55,7 @@ services:
         - "8888:8888"
       volumes:
         - .:/workspace
-        - ~/.ssh:/root/.ssh  # Mount SSH directory into the container
+      #  - ~/.ssh:/root/.ssh  # Mount SSH directory into the container
       working_dir: /workspace # Explicitly set the working directory for the Jupyter Notebook service to /workspace. Thus, os.getcwd() should return /workspace when executed within the Jupyter Notebook environment.
       depends_on:
         - python
