@@ -1,4 +1,4 @@
-# ETL Pipeline from Crypto API to PowerBI, with Dockerized Postgres, Jupyter Notebook, and Python 
+# ETL Pipeline from Crypto API to PostgreSQL, with Dockerized Postgres, Jupyter Notebook, and Python 
 
 <img src = "img/project01-etl.png">
 
