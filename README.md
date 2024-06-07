@@ -1,4 +1,4 @@
-# ETL Pipeline from Crypto API to PostgreSQL, with Dockerized Postgres, Jupyter Notebook, and Python 
+# ETL Pipeline from Crypto REST API to PostgreSQL, with Dockerized Postgres, Jupyter Notebook, and Python 
 
 <img src = "img/project01-etl.png">
 
@@ -69,7 +69,9 @@ Create a `.env` file in the project root with the following content:
 
 ### Services
 
-- **Postgres**: A PostgreSQL database instance.
+- **Postgres**: 
+  - A PostgreSQL database instance.
+  - Docker exposes port 5432 of the PostgreSQL container to port 5432 on your host machine. This makes service is accessible via `localhost:5432` on your local machine for visualization tools such as PowerBI and Tableau. However, within the docker container environment, the other services will use the postgres _hostname_ as specified in the `.env` file (`POSTGRES_HOST`).
 - **Python**: A container running Python 3.9.13 with necessary dependencies.
 - **Jupyter Notebook**: A Jupyter Notebook instance to build your ETL Pipeline and interact with the data. 
 
